@@ -1,0 +1,4 @@
+/* Chapter Check — content-script styles.
+   Injected into the closed shadow DOM via a <style> element.
+   Self-contained (no zovo-base import — runs on host page).
+   SURFACE agent fills in Phase 2. */

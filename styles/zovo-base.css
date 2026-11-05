@@ -1,0 +1,318 @@
+/* ============================================================================
+ * zovo-base.css — Zovo brand design system (Chapter Check edition)
+ * ----------------------------------------------------------------------------
+ * The single shared stylesheet imported by popup, options, and onboarding.
+ * Defines the full brand as CSS custom properties (colors, type scale, radii,
+ * shadows, transitions) plus base component classes.
+ *
+ * Source of truth: DESIGN-SYSTEM.md
+ * Import first, before any per-surface stylesheet, so tokens cascade down:
+ *     <link rel="stylesheet" href="zovo-base.css">
+ *     <link rel="stylesheet" href="popup.css">
+ *
+ * NOTE: Chapter Check is FREE-ONLY. No Pro tier, no gold accent, no paywall.
+ * ========================================================================== */
+
+/* ---- Design tokens (light) ------------------------------------------------ */
+:root {
+  /* Brand — single accent (no gold — free-only product) */
+  --zovo-primary:        #6C5CE7;   /* Zovo purple — buttons, links, active   */
+  --zovo-primary-dark:   #5A4BD1;   /* hover                                  */
+  --zovo-primary-light:  #8B7CF0;   /* subtle accents / backgrounds           */
+  --zovo-primary-50:     #F1EFFD;   /* tint fill (accent-bg)                  */
+  --zovo-accent:         #6C5CE7;   /* same as primary — ONE accent only      */
+
+  /* Surfaces & text */
+  --zovo-bg:             #FFFFFF;
+  --zovo-surface:        #F8F9FA;
+  --zovo-surface-2:      #F1F2F4;
+  --zovo-text:           #1A1A2E;   /* 15.3:1 on white — AAA                  */
+  --zovo-text-secondary: #4B5563;   /* 7.5:1 on white — AAA                   */
+  --zovo-border:         #E5E7EB;
+
+  /* Status */
+  --zovo-success:        #10B981;
+  --zovo-warning:        #F59E0B;
+  --zovo-error:          #EF4444;
+
+  /* Typography */
+  --zovo-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --zovo-font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  --zovo-fs-caption:    12px;
+  --zovo-fs-body:       14px;
+  --zovo-fs-subheading: 16px;
+  --zovo-fs-heading:    20px;
+  --zovo-fs-title:      24px;
+  --zovo-fs-hero:       44px;
+  --zovo-fw-body:       400;
+  --zovo-fw-medium:     500;
+  --zovo-fw-heading:    600;
+  --zovo-lh:            1.5;
+
+  /* Radii */
+  --zovo-radius-card:   12px;
+  --zovo-radius-btn:    8px;
+  --zovo-radius-input:  8px;
+  --zovo-radius-pill:   9999px;
+
+  /* Shadows — soft, low, single-direction */
+  --zovo-shadow-sm: 0 1px 2px rgba(16,24,40,0.05);
+  --zovo-shadow: 0 1px 3px rgba(16,24,40,0.06), 0 6px 16px -6px rgba(16,24,40,0.10);
+  --zovo-shadow-lg: 0 24px 48px -12px rgba(16,24,40,0.28);
+
+  /* Motion */
+  --zovo-transition: 150ms ease-in-out;
+
+  /* Layout */
+  --zovo-popup-w:      360px;
+  --zovo-popup-maxh:   560px;
+  --zovo-space-1: 4px;  --zovo-space-2: 8px;  --zovo-space-3: 12px;
+  --zovo-space-4: 16px; --zovo-space-5: 20px; --zovo-space-6: 24px;
+  --zovo-space-7: 32px; --zovo-space-8: 40px;
+
+  /* Focus ring */
+  --zovo-focus-ring: 0 0 0 2px var(--zovo-bg), 0 0 0 4px var(--zovo-primary);
+}
+
+/* ---- Dark mode ------------------------------------------------------------ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --zovo-primary-50:     #241f45;
+    --zovo-bg:             #0F0F1A;
+    --zovo-surface:        #1A1A2E;
+    --zovo-surface-2:      #232338;
+    --zovo-text:           #F5F5FA;    /* 15.8:1 on #0F0F1A — AAA */
+    --zovo-text-secondary: #A1A1AA;    /* 6.9:1 on #1A1A2E — AA   */
+    --zovo-border:         #2E2E45;
+    --zovo-shadow: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.3);
+    --zovo-shadow-lg: 0 20px 40px -8px rgba(0,0,0,0.6), 0 8px 16px -8px rgba(0,0,0,0.4);
+    --zovo-focus-ring: 0 0 0 2px var(--zovo-bg), 0 0 0 4px var(--zovo-primary-light);
+  }
+}
+:root[data-theme='dark'] {
+  --zovo-primary-50:     #241f45;
+  --zovo-bg:             #0F0F1A;
+  --zovo-surface:        #1A1A2E;
+  --zovo-surface-2:      #232338;
+  --zovo-text:           #F5F5FA;
+  --zovo-text-secondary: #A1A1AA;
+  --zovo-border:         #2E2E45;
+  --zovo-shadow: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.3);
+  --zovo-shadow-lg: 0 20px 40px -8px rgba(0,0,0,0.6), 0 8px 16px -8px rgba(0,0,0,0.4);
+  --zovo-focus-ring: 0 0 0 2px var(--zovo-bg), 0 0 0 4px var(--zovo-primary-light);
+}
+
+/* ---- Base ----------------------------------------------------------------- */
+.zovo-root,
+body.zovo {
+  margin: 0;
+  font-family: var(--zovo-font);
+  font-size: var(--zovo-fs-body);
+  line-height: var(--zovo-lh);
+  color: var(--zovo-text);
+  background: var(--zovo-bg);
+  -webkit-font-smoothing: antialiased;
+}
+.zovo-root *, .zovo-root *::before, .zovo-root *::after { box-sizing: border-box; }
+
+/* Popup sizing helper */
+.zovo-popup {
+  width: var(--zovo-popup-w);
+  max-height: var(--zovo-popup-maxh);
+  overflow-y: auto;
+  background: var(--zovo-surface);
+}
+
+/* ---- Header --------------------------------------------------------------- */
+.zovo-header {
+  display: flex;
+  align-items: center;
+  gap: var(--zovo-space-3);
+  padding: var(--zovo-space-4) var(--zovo-space-5);
+  border-bottom: 1px solid var(--zovo-border);
+}
+.zovo-header__icon { width: 28px; height: 28px; border-radius: var(--zovo-radius-input); }
+.zovo-header__title {
+  flex: 1; min-width: 0;
+  font-size: var(--zovo-fs-subheading);
+  font-weight: var(--zovo-fw-heading);
+  letter-spacing: -0.01em;
+}
+
+/* ---- Card ----------------------------------------------------------------- */
+.zovo-card {
+  background: var(--zovo-bg);
+  border: 1px solid var(--zovo-border);
+  border-radius: var(--zovo-radius-card);
+  padding: var(--zovo-space-5);
+  box-shadow: var(--zovo-shadow);
+}
+.zovo-card--flush { box-shadow: none; background: var(--zovo-surface); }
+
+/* ---- Buttons -------------------------------------------------------------- */
+.zovo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zovo-space-2);
+  min-height: 40px;
+  padding: 10px 18px;
+  font-family: inherit;
+  font-size: var(--zovo-fs-body);
+  font-weight: var(--zovo-fw-medium);
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--zovo-radius-btn);
+  cursor: pointer;
+  transition: background var(--zovo-transition), border-color var(--zovo-transition),
+              color var(--zovo-transition), transform var(--zovo-transition);
+}
+.zovo-btn:active { transform: translateY(1px); }
+.zovo-btn:focus-visible { outline: none; box-shadow: var(--zovo-focus-ring); }
+.zovo-btn[disabled] { opacity: 0.55; cursor: not-allowed; }
+
+.zovo-btn--primary { background: var(--zovo-primary); color: #fff; }
+.zovo-btn--primary:hover:not([disabled]) { background: var(--zovo-primary-dark); }
+
+.zovo-btn--secondary {
+  background: var(--zovo-surface);
+  color: var(--zovo-text);
+  border-color: var(--zovo-border);
+}
+.zovo-btn--secondary:hover:not([disabled]) { background: var(--zovo-surface-2); }
+
+.zovo-btn--ghost { background: transparent; color: var(--zovo-primary); }
+.zovo-btn--ghost:hover:not([disabled]) { background: var(--zovo-primary-50); }
+
+.zovo-btn--block { width: 100%; }
+
+/* ---- Inputs --------------------------------------------------------------- */
+.zovo-input {
+  width: 100%;
+  padding: 8px 10px;
+  font-family: inherit;
+  font-size: var(--zovo-fs-body);
+  color: var(--zovo-text);
+  background: var(--zovo-surface);
+  border: 1px solid var(--zovo-border);
+  border-radius: var(--zovo-radius-input);
+  transition: border-color var(--zovo-transition), box-shadow var(--zovo-transition);
+}
+.zovo-input:focus-visible {
+  outline: none;
+  border-color: var(--zovo-primary);
+  box-shadow: 0 0 0 3px var(--zovo-primary-50);
+}
+
+/* ---- Footer --------------------------------------------------------------- */
+.zovo-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--zovo-space-3) var(--zovo-space-5);
+  font-size: var(--zovo-fs-caption);
+  color: var(--zovo-text-secondary);
+  border-top: 1px solid var(--zovo-border);
+}
+.zovo-footer a { color: var(--zovo-primary); text-decoration: none; }
+.zovo-footer a:hover { text-decoration: underline; }
+
+/* ---- Eyebrow / section label --------------------------------------------- */
+.zovo-eyebrow {
+  margin: 0 0 var(--zovo-space-2);
+  font-size: 11px; font-weight: var(--zovo-fw-heading);
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--zovo-text-secondary);
+}
+
+/* ---- Toggle switch (accessible role="switch") ---------------------------- */
+.zovo-toggle {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 46px;
+  width: 46px;
+  height: 26px;
+}
+.zovo-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+.zovo-toggle__track {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--zovo-radius-pill);
+  background: var(--zovo-surface-2);
+  border: 1px solid var(--zovo-border);
+  transition: background var(--zovo-transition), border-color var(--zovo-transition);
+}
+.zovo-toggle__thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform var(--zovo-transition);
+}
+.zovo-toggle input:checked ~ .zovo-toggle__track {
+  background: var(--zovo-primary);
+  border-color: var(--zovo-primary);
+}
+.zovo-toggle input:checked ~ .zovo-toggle__track .zovo-toggle__thumb {
+  transform: translateX(20px);
+}
+.zovo-toggle input:focus-visible ~ .zovo-toggle__track {
+  box-shadow: var(--zovo-focus-ring);
+}
+
+/* ---- Utility -------------------------------------------------------------- */
+.zovo-muted { color: var(--zovo-text-secondary); }
+.zovo-mono  { font-family: var(--zovo-font-mono); }
+.zovo-sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* ---- Stack / layout helpers ---------------------------------------------- */
+.zovo-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zovo-space-4);
+  padding: var(--zovo-space-5);
+}
+
+/* ---- Setting row (label + toggle) ---------------------------------------- */
+.zovo-setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--zovo-space-4);
+  padding: var(--zovo-space-3) 0;
+}
+.zovo-setting-row__text {
+  flex: 1;
+  min-width: 0;
+}
+.zovo-setting-row__label {
+  font-size: var(--zovo-fs-body);
+  font-weight: var(--zovo-fw-medium);
+  color: var(--zovo-text);
+  line-height: 1.3;
+}
+.zovo-setting-row__hint {
+  font-size: var(--zovo-fs-caption);
+  color: var(--zovo-text-secondary);
+  margin-top: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zovo-root *, .zovo-root *::before, .zovo-root *::after {
+    transition: none !important; animation: none !important;
+  }
+}

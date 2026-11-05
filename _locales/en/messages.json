@@ -1,0 +1,35 @@
+{
+  "extName": {
+    "message": "Chapter Check — Lint Video Chapter Timestamps"
+  },
+  "extDesc": {
+    "message": "Live-lint the chapter timestamps you type in the YouTube Studio description editor and flag the exact line breaking the rules."
+  },
+  "popupTitle": {
+    "message": "Chapter Check"
+  },
+  "masterToggleLabel": {
+    "message": "Enable Chapter Check"
+  },
+  "infoHintsLabel": {
+    "message": "Show info hints"
+  },
+  "openOptions": {
+    "message": "Open options"
+  },
+  "optionsTitle": {
+    "message": "Chapter Check — Options"
+  },
+  "footerLink": {
+    "message": "Built by Zovo"
+  },
+  "onboardingTitle": {
+    "message": "Chapter Check"
+  },
+  "onboardingBody": {
+    "message": "Chapter Check watches the description editor on YouTube Studio and flags the exact line that breaks a YouTube chapter-activation rule — the moment you type it."
+  },
+  "onboardingDisclaimer": {
+    "message": "Chapter Check predicts chapter activation. It does not control YouTube, does not edit your video, and does not send anything to any server."
+  }
+}
